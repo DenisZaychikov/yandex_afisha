@@ -7,6 +7,7 @@ from adminsortable2.admin import SortableInlineAdminMixin
 @admin.register(Image)
 class AdminImage(admin.ModelAdmin):
     readonly_fields = ["get_preview"]
+    raw_id_fields = ('place',)
 
     def get_preview(self, obj):
         return mark_safe(
