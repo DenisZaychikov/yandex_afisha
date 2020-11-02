@@ -5,6 +5,7 @@ from adminsortable2.admin import SortableInlineAdminMixin
 
 IMAGE_WIDTH = 200
 
+
 @admin.register(Image)
 class AdminImage(admin.ModelAdmin):
     readonly_fields = ["get_preview"]

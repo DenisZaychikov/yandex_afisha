@@ -17,12 +17,15 @@ class Command(BaseCommand):
         response.raise_for_status()
         data = response.json()
 
-        new_place = Place.objects.get_or_create(
-            title=data['title'],
-            short_description=data['description_short'],
-            long_description=data['description_long'],
+        new_place, _ = Place.objects.update_or_create(
             lat=data['coordinates']['lat'],
-            lon=data['coordinates']['lng']
+            lon=data['coordinates']['lng'],
+
+            defaults={
+                'title': data['title'],
+                'short_description': data['description_short'],
+                'long_description': data['description_long'],
+            }
         )
         new_place.save()
 
@@ -32,8 +35,12 @@ class Command(BaseCommand):
             resp = requests.get(image_url)
             resp.raise_for_status()
             image = resp.content
-            new_image = Image.objects.get_or_create(place=new_place,
-                                                    image=image_name,
-                                                    my_order=index)
+            new_image, _ = Image.objects.update_or_create(place=new_place,
+                                                          image=image_name,
+
+                                                          defaults={
+                                                              'my_order': index
+                                                          }
+                                                          )
             new_image.save()
             new_image.image.save(image_name, ContentFile(image), save=True)
