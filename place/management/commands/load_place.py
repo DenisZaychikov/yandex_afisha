@@ -35,12 +35,13 @@ class Command(BaseCommand):
             resp = requests.get(image_url)
             resp.raise_for_status()
             image = resp.content
-            new_image, _ = Image.objects.update_or_create(place=new_place,
-                                                          image=image_name,
+            new_image, _ = Image.objects.update_or_create(
+                place=new_place,
+                image=image_name,
 
-                                                          defaults={
-                                                              'my_order': index
-                                                          }
-                                                          )
+                defaults={
+                    'my_order': index
+                }
+            )
             new_image.save()
             new_image.image.save(image_name, ContentFile(image), save=True)
