@@ -12,11 +12,7 @@ class AdminImage(admin.ModelAdmin):
 
     def get_preview(self, obj):
         return format_html(
-            '<img src="{url}" width="{width}" height={height} />'.format(
-                url=obj.image.url,
-                width=obj.image.width,
-                height=obj.image.height,
-            )
+            '<img src="{}" width="{}" />', obj.image.url, IMAGE_WIDTH
         )
 
 
@@ -26,10 +22,7 @@ class ImageInLine(SortableInlineAdminMixin, admin.TabularInline):
 
     def get_preview(self, obj):
         return format_html(
-            '<img src="{url}" width="{width}" />'.format(
-                url=obj.image.url,
-                width=IMAGE_WIDTH,
-            )
+            '<img src="{}" width="{}" />', obj.image.url, IMAGE_WIDTH
         )
 
 
