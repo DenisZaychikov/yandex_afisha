@@ -11,8 +11,7 @@ class Command(BaseCommand):
         parser.add_argument('new_filepath', type=str)
 
     def handle(self, *args, **kwargs):
-        filepath = kwargs['new_filepath']
-        response = requests.get(filepath)
+        response = requests.get(kwargs['new_filepath'])
         response.raise_for_status()
         data = response.json()
 
