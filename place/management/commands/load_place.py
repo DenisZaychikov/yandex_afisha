@@ -27,10 +27,9 @@ class Command(BaseCommand):
                 'long_description': data['description_long'],
             }
         )
-        new_place.save()
 
-        images_url = data['imgs']
-        for index, image_url in enumerate(images_url, 1):
+        images_urls = data['imgs']
+        for index, image_url in enumerate(images_urls, 1):
             image_name = image_url.split('/')[-1]
             resp = requests.get(image_url)
             resp.raise_for_status()
@@ -43,5 +42,5 @@ class Command(BaseCommand):
                     'my_order': index
                 }
             )
-            new_image.save()
+
             new_image.image.save(image_name, ContentFile(image), save=True)
