@@ -12,7 +12,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         filepath = kwargs['new_filepath']
-
         response = requests.get(filepath)
         response.raise_for_status()
         data = response.json()
